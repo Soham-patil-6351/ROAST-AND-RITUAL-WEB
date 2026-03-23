@@ -1,0 +1,901 @@
+/* ================================================================
+   style.css — Brew Haven Coffee Shop
+   Author  : Soham Patil
+   Project : Static Café Website (HTML + CSS only)
+   
+   TABLE OF CONTENTS:
+   1.  CSS Variables (Color Palette + Reusable Values)
+   2.  Reset & Base Styles
+   3.  Navbar
+   4.  Hero Section
+   5.  Hero Animations (@keyframes)
+   6.  Shared Section Styles (labels, titles, decorative line)
+   7.  Menu Section
+   8.  Menu Cards
+   9.  About Section
+   10. Contact Section
+   11. Footer
+   12. Responsive (Tablet: max 900px, Mobile: max 640px)
+================================================================ */
+
+
+/* ================================================================
+   1. CSS VARIABLES
+   - Defined on :root so they work everywhere in the file
+   - Change a color here → it updates across the whole site
+   - Usage: color: var(--brown);
+================================================================ */
+:root {
+  /* Color palette — warm café tones */
+  --cream:     #faf6f0;   /* lightest background — page base */
+  --beige:     #f2e8d9;   /* slightly darker bg — alternating sections */
+  --sand:      #e8d5bc;   /* subtle accent tones */
+  --brown-lt:  #c8a882;   /* light brown — hero eyebrow, badge text */
+  --brown:     #8b5e3c;   /* main brand color — buttons, labels, accents */
+  --brown-dk:  #5c3d1e;   /* darker brown — headings, hover states */
+  --espresso:  #2c1a0e;   /* near-black — body text, footer background */
+  --black:     #1a1109;   /* deepest black (rarely used) */
+  --white:     #fffdf9;   /* warm white — card backgrounds, hero text */
+
+  /* Reusable box shadows */
+  --shadow:    0 8px 32px rgba(92, 61, 30, 0.13);   /* default card shadow */
+  --shadow-lg: 0 20px 60px rgba(92, 61, 30, 0.18);  /* larger shadow on hover */
+
+  /* Border radius tokens */
+  --radius:    16px;   /* cards and large containers */
+  --radius-sm: 10px;   /* smaller elements */
+}
+
+
+/* ================================================================
+   2. RESET & BASE STYLES
+   - Remove default margin/padding from all elements
+   - Set base font, background, and text color on body
+================================================================ */
+
+/* Universal box-sizing reset — padding won't add to element width */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* Enables smooth scrolling when navbar links are clicked */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Body — sets the default font, background, text color, and line height */
+body {
+  font-family: 'Poppins', sans-serif;  /* Google Font loaded in HTML */
+  background: var(--cream);
+  color: var(--espresso);
+  line-height: 1.7;
+  overflow-x: hidden; /* prevents horizontal scroll on mobile */
+}
+
+/* Images — block removes inline gap, max-width prevents overflow */
+img {
+  display: block;
+  max-width: 100%;
+}
+
+/* Anchor tags — remove default underline and inherit text color */
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+
+/* ================================================================
+   3. NAVBAR
+   - position: sticky keeps it pinned to top while scrolling
+   - backdrop-filter adds a frosted-glass blur effect
+   - flexbox to space logo and links apart
+================================================================ */
+nav {
+  position: sticky;         /* stays at top of viewport while scrolling */
+  top: 0;
+  z-index: 999;             /* ensures it appears above all other elements */
+  background: rgba(250, 246, 240, 0.92);  /* semi-transparent cream */
+  backdrop-filter: blur(14px);            /* frosted glass blur effect */
+  -webkit-backdrop-filter: blur(14px);    /* Safari support */
+  border-bottom: 1px solid rgba(200, 168, 130, 0.25);
+  padding: 0 6%;            /* 6% left/right padding — responsive spacing */
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 70px;
+}
+
+/* Logo — uses Playfair Display (serif) for elegance */
+.nav-logo {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.55rem;
+  font-weight: 700;
+  color: var(--brown-dk);
+  letter-spacing: 0.02em;
+}
+
+/* "Haven" part of logo — lighter brown color via <span> in HTML */
+.nav-logo span {
+  color: var(--brown);
+}
+
+/* Nav links list — flex row, remove bullet points */
+.nav-links {
+  display: flex;
+  gap: 36px;
+  list-style: none;
+}
+
+/* Individual nav link styles */
+.nav-links a {
+  font-size: 0.88rem;
+  font-weight: 500;
+  color: var(--espresso);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  position: relative;   /* needed for the ::after underline trick */
+  padding-bottom: 3px;
+  transition: color 0.25s;
+}
+
+/* 
+   Underline animation using ::after pseudo-element
+   Default: width is 0 (invisible)
+   On hover: width becomes 100% (slides in from left)
+*/
+.nav-links a::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;           /* hidden by default */
+  height: 1.5px;
+  background: var(--brown);
+  transition: width 0.3s ease;
+}
+
+/* On hover — change text color + trigger underline animation */
+.nav-links a:hover            { color: var(--brown); }
+.nav-links a:hover::after     { width: 100%; }  /* underline slides in */
+
+
+/* ================================================================
+   4. HERO SECTION
+   - Full-screen with coffee background image + dark gradient overlay
+   - gradient sits on top of image (listed first in background property)
+   - flexbox centers all content vertically and horizontally
+================================================================ */
+#home {
+  min-height: 100vh;  /* full viewport height */
+
+  /* 
+     Two-layer background:
+     Layer 1 (front): dark gradient overlay for text readability
+     Layer 2 (back) : actual coffee photo from Unsplash
+  */
+  background:
+    linear-gradient(
+      to bottom,
+      rgba(28, 16, 6, 0.52)  0%,    /* dark top */
+      rgba(44, 26, 14, 0.38) 60%,   /* lighter middle */
+      rgba(28, 16, 6, 0.68)  100%   /* dark bottom */
+    ),
+    url('https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=1600&q=80&fit=crop')
+    center / cover no-repeat;       /* center the image, cover full area */
+
+  /* Flexbox to center all children */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 0 6%;
+  position: relative;  /* needed for the scroll indicator (absolute) */
+}
+
+/* Small text above the main heading */
+.hero-eyebrow {
+  font-size: 0.78rem;
+  font-weight: 500;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--brown-lt);
+  margin-bottom: 18px;
+  animation: fadeUp 0.8s ease both;  /* animates in on page load */
+}
+
+/* 
+   Main hero heading
+   clamp(min, preferred, max) — responsive font size:
+   min 2.8rem on tiny screens, scales with viewport, max 5.2rem
+*/
+.hero-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(2.8rem, 6vw, 5.2rem);
+  font-weight: 700;
+  color: var(--white);
+  line-height: 1.15;
+  max-width: 820px;
+  margin-bottom: 22px;
+  animation: fadeUp 0.9s 0.1s ease both;  /* 0.1s delay — staggers after eyebrow */
+}
+
+/* Italic "Happiness" in the heading */
+.hero-title em {
+  font-style: italic;
+  color: var(--brown-lt);
+}
+
+/* Subtext below the heading */
+.hero-sub {
+  font-size: 1.05rem;
+  font-weight: 300;
+  color: rgba(255, 253, 249, 0.8);
+  max-width: 500px;
+  margin-bottom: 42px;
+  animation: fadeUp 1s 0.2s ease both;  /* 0.2s delay */
+}
+
+/* CTA Button — "Explore Menu" */
+.btn-primary {
+  display: inline-block;
+  background: var(--brown);
+  color: var(--white);
+  padding: 15px 42px;
+  border-radius: 50px;            /* pill shape */
+  font-size: 0.9rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  transition: background 0.3s, transform 0.25s, box-shadow 0.3s;
+  box-shadow: 0 6px 28px rgba(139, 94, 60, 0.45);
+  animation: fadeUp 1s 0.3s ease both;  /* 0.3s delay — last to appear */
+}
+
+/* Button hover — lifts up 3px + darkens background */
+.btn-primary:hover {
+  background: var(--brown-dk);
+  transform: translateY(-3px);
+  box-shadow: 0 12px 36px rgba(92, 61, 30, 0.5);
+}
+
+/* Scroll indicator at the bottom of the hero */
+.hero-scroll {
+  position: absolute;
+  bottom: 34px;
+  left: 50%;
+  transform: translateX(-50%);  /* center horizontally */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  color: rgba(255, 253, 249, 0.5);
+  font-size: 0.7rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+}
+
+/* The thin animated vertical line in scroll indicator */
+.hero-scroll-line {
+  width: 1px;
+  height: 40px;
+  background: linear-gradient(to bottom, rgba(255, 253, 249, 0.5), transparent);
+  animation: scrollLine 1.8s ease-in-out infinite;
+}
+
+
+/* ================================================================
+   5. HERO ANIMATIONS (@keyframes)
+   - fadeUp : all hero text fades in from below on page load
+   - scrollLine : the scroll indicator line pulses up and down
+================================================================ */
+
+/* Elements start invisible + shifted down, then fade to normal */
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(28px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Scroll line contracts and fades at 50%, then expands back */
+@keyframes scrollLine {
+  0%,  100% { transform: scaleY(1);   opacity: 1; }
+  50%        { transform: scaleY(0.4); opacity: 0.4; }
+}
+
+
+/* ================================================================
+   6. SHARED SECTION STYLES
+   - Reused across Menu, About, Contact sections
+   - section   : uniform top/bottom padding for all sections
+   - .section-label  : small uppercase colored tag
+   - .section-title  : large serif heading
+   - .section-line   : decorative brown underline bar
+================================================================ */
+
+/* All <section> elements get the same vertical padding */
+section {
+  padding: 100px 6%;
+}
+
+/* Small label above section headings — e.g. "OUR OFFERINGS" */
+.section-label {
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--brown);
+  margin-bottom: 10px;
+}
+
+/* 
+   Section main heading — responsive with clamp()
+   Scales between 2rem (mobile) and 3rem (desktop)
+*/
+.section-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(2rem, 3.5vw, 3rem);
+  font-weight: 700;
+  color: var(--espresso);
+  line-height: 1.2;
+  margin-bottom: 16px;
+}
+
+/* Short brown decorative line below the heading */
+.section-line {
+  width: 48px;
+  height: 2px;
+  background: var(--brown);
+  border-radius: 2px;
+  margin-bottom: 48px;
+}
+
+
+/* ================================================================
+   7. MENU SECTION
+   - Background slightly darker than the hero (uses --beige)
+   - Header is centered (text-align center + auto margin on line)
+   - CSS Grid auto-fits: 3 cols desktop → 2 cols tablet → 1 col mobile
+================================================================ */
+#menu {
+  background: var(--beige);  /* slightly darker than the hero background */
+}
+
+/* Center-align the section header */
+.menu-header {
+  text-align: center;
+}
+
+/* Center the decorative line under the heading */
+.menu-header .section-line {
+  margin: 0 auto 48px;  /* auto left/right centers a block element */
+}
+
+/* 
+   CSS Grid for menu cards
+   auto-fit: fills row with as many columns as fit
+   minmax(270px, 1fr): each column is min 270px, max equal share
+   Result: 3 cols on desktop, 2 on tablet, 1 on mobile — automatically
+*/
+.menu-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+  gap: 28px;
+  max-width: 1100px;
+  margin: 0 auto;  /* center the grid within the section */
+}
+
+
+/* ================================================================
+   8. MENU CARDS
+   - White card with rounded corners and shadow
+   - ::before pseudo-element creates the top color bar (hidden by default)
+   - On hover: bar slides in + card lifts up with larger shadow
+================================================================ */
+.menu-card {
+  background: var(--white);
+  border-radius: var(--radius);     /* 16px rounded corners */
+  padding: 36px 30px 30px;
+  box-shadow: var(--shadow);
+  transition: transform 0.35s ease, box-shadow 0.35s ease;
+  position: relative;   /* needed for the ::before top bar */
+  overflow: hidden;     /* hides the bar when it's scaled to 0 */
+  cursor: default;
+}
+
+/* 
+   Top gradient bar — hidden by default (scaleX: 0)
+   Slides in from left when card is hovered
+*/
+.menu-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--brown-lt), var(--brown));
+  transform: scaleX(0);           /* hidden: collapsed to zero width */
+  transform-origin: left;         /* slides in from the left side */
+  transition: transform 0.4s ease;
+}
+
+/* On hover: reveal the top bar */
+.menu-card:hover::before {
+  transform: scaleX(1);  /* full width — slides in smoothly */
+}
+
+/* On hover: lift card up + deepen shadow */
+.menu-card:hover {
+  transform: translateY(-8px);
+  box-shadow: var(--shadow-lg);
+}
+
+/* Emoji icon at top of card */
+.menu-icon {
+  font-size: 2rem;
+  margin-bottom: 16px;
+}
+
+/* Drink name — serif font for elegance */
+.menu-name {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--brown-dk);
+  margin-bottom: 8px;
+}
+
+/* Short description text */
+.menu-desc {
+  font-size: 0.85rem;
+  font-weight: 300;
+  color: #7a6450;
+  line-height: 1.65;
+  margin-bottom: 22px;
+}
+
+/* Bottom row of card: price on left, tag on right */
+.menu-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* Price in large serif font */
+.menu-price {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: var(--brown);
+}
+
+/* Pill-shaped label — e.g. "Bestseller", "New", "Vegan" */
+.menu-tag {
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--brown);
+  background: rgba(200, 168, 130, 0.18);
+  border: 1px solid rgba(200, 168, 130, 0.4);
+  padding: 4px 12px;
+  border-radius: 20px;  /* pill shape */
+}
+
+
+/* ================================================================
+   9. ABOUT SECTION
+   - CSS Grid: 2 equal columns (image | text)
+   - Image has overflow-friendly aspect ratio + rounded corners
+   - .about-badge is absolutely positioned over the image
+   - Stats row uses flexbox
+================================================================ */
+#about {
+  background: var(--cream);
+}
+
+/* Two-column grid layout */
+.about-inner {
+  display: grid;
+  grid-template-columns: 1fr 1fr;   /* two equal columns */
+  gap: 80px;
+  align-items: center;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+/* Image wrapper — position: relative so badge can be absolute inside */
+.about-img-wrap {
+  position: relative;
+}
+
+/* Café interior image */
+.about-img {
+  width: 100%;
+  aspect-ratio: 4 / 5;    /* portrait ratio — tall image */
+  object-fit: cover;       /* crops image to fill without distorting */
+  border-radius: 20px;
+  box-shadow: var(--shadow-lg);
+}
+
+/* 
+   Circular badge overlapping the image's bottom-right corner
+   position: absolute places it relative to .about-img-wrap
+*/
+.about-badge {
+  position: absolute;
+  bottom: -24px;
+  right: -24px;
+  background: var(--brown);
+  color: var(--white);
+  width: 110px;
+  height: 110px;
+  border-radius: 50%;   /* perfect circle */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  box-shadow: 0 8px 24px rgba(139, 94, 60, 0.4);
+  border: 4px solid var(--cream);  /* creates a "ring" effect */
+}
+
+/* Big number in the badge */
+.about-badge-num {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.7rem;
+  font-weight: 700;
+  line-height: 1;
+}
+
+/* Small text below the number in badge */
+.about-badge-txt {
+  font-size: 0.65rem;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  opacity: 0.9;
+}
+
+/* Right column: add slight right padding for visual balance */
+.about-content {
+  padding-right: 10px;
+}
+
+/* Story paragraphs */
+.about-content p {
+  font-size: 0.95rem;
+  font-weight: 300;
+  color: #5a4433;
+  line-height: 1.85;
+  margin-bottom: 18px;
+}
+
+/* Stats row — flex so numbers sit side by side */
+.about-values {
+  display: flex;
+  gap: 28px;
+  margin-top: 36px;
+  flex-wrap: wrap;  /* wraps to next line on very small screens */
+}
+
+/* Individual stat item — flex column (number on top, label below) */
+.about-val {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+/* Big stat number */
+.about-val-num {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: var(--brown);
+}
+
+/* Small label under the stat number */
+.about-val-lbl {
+  font-size: 0.78rem;
+  font-weight: 500;
+  color: #9a7a5a;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+
+/* ================================================================
+   10. CONTACT SECTION
+   - Background slightly darker (--beige)
+   - Two-column grid: contact info | opening hours card
+   - Each contact item: icon box + text (flex row)
+   - Hours card: white card with rows separated by thin borders
+================================================================ */
+#contact {
+  background: var(--beige);
+}
+
+/* Two-column grid */
+.contact-inner {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 70px;
+  align-items: start;   /* align to top (not center) — heights differ */
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+/* Stack contact items vertically in left column */
+.contact-info-items {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+
+/* Each contact row: icon box + label/value text */
+.contact-item {
+  display: flex;
+  gap: 18px;
+  align-items: flex-start;
+}
+
+/* Square icon box with rounded corners */
+.contact-icon {
+  width: 46px;
+  height: 46px;
+  min-width: 46px;          /* prevents shrinking in flex */
+  background: var(--brown);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1rem;
+  color: var(--white);
+  box-shadow: 0 4px 14px rgba(139, 94, 60, 0.3);
+}
+
+/* Small uppercase label — e.g. "ADDRESS", "PHONE" */
+.contact-item-lbl {
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--brown);
+  margin-bottom: 4px;
+}
+
+/* The actual contact value below the label */
+.contact-item-val {
+  font-size: 0.92rem;
+  font-weight: 400;
+  color: var(--espresso);
+  line-height: 1.6;
+}
+
+/* Right column — white card for opening hours */
+.contact-hours {
+  background: var(--white);
+  border-radius: var(--radius);
+  padding: 36px 32px;
+  box-shadow: var(--shadow);
+}
+
+/* "Opening Hours" heading inside the card */
+.hours-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: var(--brown-dk);
+  margin-bottom: 24px;
+}
+
+/* Each day/time row */
+.hours-row {
+  display: flex;
+  justify-content: space-between;  /* day on left, time on right */
+  padding: 12px 0;
+  border-bottom: 1px solid rgba(200, 168, 130, 0.2);
+  font-size: 0.88rem;
+}
+
+/* Remove border from last row */
+.hours-row:last-child {
+  border-bottom: none;
+}
+
+/* Day name (e.g. "Monday – Friday") */
+.hours-day {
+  font-weight: 500;
+  color: var(--espresso);
+}
+
+/* Opening time (e.g. "7:30 AM – 10:00 PM") */
+.hours-time {
+  color: var(--brown);
+  font-weight: 400;
+}
+
+
+/* ================================================================
+   11. FOOTER
+   - Dark espresso background (near-black)
+   - Centered flex column: logo → tagline → social pills → divider → copy
+   - Social pills are text-only with pill-shaped borders
+================================================================ */
+footer {
+  background: var(--espresso);
+  color: rgba(255, 253, 249, 0.75);
+  padding: 56px 6% 36px;
+}
+
+/* Center all footer content */
+.footer-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 28px;
+  text-align: center;
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+/* Footer logo */
+.footer-logo {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: var(--white);
+}
+
+/* "Haven" in lighter color via <span> */
+.footer-logo span {
+  color: var(--brown-lt);
+}
+
+/* Short tagline below logo */
+.footer-tagline {
+  font-size: 0.85rem;
+  font-weight: 300;
+  color: rgba(255, 253, 249, 0.5);
+  letter-spacing: 0.06em;
+}
+
+/* Flex row for social link pills */
+.footer-socials {
+  display: flex;
+  gap: 18px;
+}
+
+/* Individual social pill links */
+.social-link {
+  display: inline-block;
+  padding: 8px 20px;
+  border: 1px solid rgba(200, 168, 130, 0.25);
+  border-radius: 30px;
+  font-size: 0.78rem;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(255, 253, 249, 0.7);
+  transition: all 0.25s;
+}
+
+/* Hover: border brightens + text brightens */
+.social-link:hover {
+  border-color: var(--brown-lt);
+  color: var(--brown-lt);
+  background: rgba(200, 168, 130, 0.08);
+}
+
+/* Thin horizontal divider line */
+.footer-divider {
+  width: 100%;
+  height: 1px;
+  background: rgba(200, 168, 130, 0.12);
+}
+
+/* Copyright text */
+.footer-copy {
+  font-size: 0.78rem;
+  font-weight: 300;
+  color: rgba(255, 253, 249, 0.35);
+  letter-spacing: 0.04em;
+}
+
+/* "Soham Patil" in slightly brighter color */
+.footer-copy strong {
+  color: rgba(255, 253, 249, 0.55);
+  font-weight: 500;
+}
+
+
+/* ================================================================
+   12. RESPONSIVE STYLES
+   - Tablet (max-width: 900px): stack 2-col grids to 1 column
+   - Mobile (max-width: 640px): tighten spacing, shrink text
+================================================================ */
+
+/* ── TABLET: 900px and below ── */
+@media (max-width: 900px) {
+
+  /* Stack About and Contact grids to single column */
+  .about-inner,
+  .contact-inner {
+    grid-template-columns: 1fr;
+    gap: 48px;
+  }
+
+  /* Reposition badge so it doesn't overflow viewport */
+  .about-badge {
+    right: 10px;
+  }
+
+  /* Change image to landscape ratio on smaller screens */
+  .about-img {
+    aspect-ratio: 16 / 9;
+  }
+
+  /* Tighten navbar padding */
+  nav {
+    padding: 0 5%;
+  }
+
+  /* Reduce gap between nav links */
+  .nav-links {
+    gap: 22px;
+  }
+}
+
+
+/* ── MOBILE: 640px and below ── */
+@media (max-width: 640px) {
+
+  /* Reduce section padding on mobile */
+  section {
+    padding: 72px 5%;
+  }
+
+  /* Tighter nav link spacing */
+  .nav-links {
+    gap: 16px;
+  }
+
+  /* Smaller nav link text */
+  .nav-links a {
+    font-size: 0.78rem;
+    letter-spacing: 0.02em;
+  }
+
+  /* Slightly smaller hero subtext */
+  .hero-sub {
+    font-size: 0.95rem;
+  }
+
+  /* Slightly smaller button on mobile */
+  .btn-primary {
+    padding: 13px 32px;
+    font-size: 0.82rem;
+  }
+
+  /* Tighten stats row gap */
+  .about-values {
+    gap: 20px;
+  }
+
+  /* Wrap social pills to multiple lines if needed */
+  .footer-socials {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+}

@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="en">
+ 
+<!-- ============================================================
+     HEAD — Meta info, Google Fonts, and link to style.css
+     ============================================================ -->
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Brew Haven — Freshly Brewed Happiness</title>
+ 
+  <!-- Google Fonts: Playfair Display (headings) + Poppins (body text) -->
+  <link
+    href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Poppins:wght@300;400;500;600&display=swap"
+    rel="stylesheet"
+  />
+ 
+  <!-- Link to external CSS file — MUST be in same folder as index.html -->
+  <link rel="stylesheet" href="style.css" />
+</head>
+ 
+<!-- ============================================================
+     BODY — All visible page content goes inside here
+     ============================================================ -->
+<body>
+ 
+ 
+  <!-- ============================================================
+       SECTION 1: NAVBAR
+       - Sticky top navigation bar
+       - Logo on the left, nav links on the right
+       - href="#id" links scroll to each section smoothly
+       ============================================================ -->
+  <nav>
+ 
+    <!-- Logo: text-based brand name -->
+    <div class="nav-logo">Roast&<span>Ritual ☕</span></div>
+ 
+    <!-- Navigation links — each href points to a section id below -->
+    <ul class="nav-links">
+      <li><a href="#home">Home</a></li>
+      <li><a href="#menu">Menu</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+ 
+  </nav>
+  <!-- END NAVBAR -->
+ 
+ 
+  <!-- ============================================================
+       SECTION 2: HERO
+       - Full-screen section with background coffee image
+       - id="home" matches the navbar link href="#home"
+       - Contains headline, subtext, and CTA button
+       ============================================================ -->
+  <section id="home">
+ 
+    <!-- Small label above the main heading -->
+    <p class="hero-eyebrow">☕ Est. 2019 · Chh. Sambhajinagar, Maharashtra</p>
+ 
+    <!-- Main hero heading — <em> makes "Happiness" italic + colored -->
+    <h1 class="hero-title">Freshly Brewed <em>Happiness</em></h1>
+ 
+    <!-- Supporting subtext below heading -->
+    <p class="hero-sub">
+      Every cup tells a story — crafted with love, single-origin beans,
+      and unhurried mornings in mind.
+    </p>
+ 
+    <!-- CTA Button — links to the menu section -->
+    <a href="#menu" class="btn-primary">Explore Menu</a>
+ 
+    <!-- Scroll indicator animation at the bottom of the hero -->
+    <div class="hero-scroll">
+      <div class="hero-scroll-line"></div>
+      <span>Scroll</span>
+    </div>
+ 
+  </section>
+  <!-- END HERO -->
+ 
+ 
+  <!-- ============================================================
+       SECTION 3: MENU
+       - id="menu" matches the navbar link href="#menu"
+       - Header with label + title + decorative line
+       - CSS Grid layout: 3 columns on desktop, 1 on mobile
+       - 6 menu cards, each with icon / name / desc / price / tag
+       ============================================================ -->
+  <section id="menu">
+ 
+    <!-- Centered section header -->
+    <div class="menu-header">
+      <p class="section-label">Our Offerings</p>
+      <h2 class="section-title">The Roast&Ritual ☕ Menu</h2>
+      <div class="section-line"></div>  <!-- Decorative brown underline -->
+    </div>
+ 
+    <!-- Grid container — holds all 6 menu cards -->
+    <div class="menu-grid">
+ 
+      <!-- ── MENU CARD 1 ── -->
+      <div class="menu-card">
+        <div class="menu-icon">☕</div>
+        <div class="menu-name">Signature Espresso</div>
+        <p class="menu-desc">
+          A double-shot pulled from our house blend — bold, syrupy,
+          and finished with a velvet crema that lingers.
+        </p>
+        <div class="menu-footer">
+          <span class="menu-price">₹120</span>
+          <span class="menu-tag">Bestseller</span>
+        </div>
+      </div>
+ 
+      <!-- ── MENU CARD 2 ── -->
+      <div class="menu-card">
+        <div class="menu-icon">🥛</div>
+        <div class="menu-name">Hazelnut Latte</div>
+        <p class="menu-desc">
+          Silky steamed milk, a double shot of espresso, and a swirl
+          of toasted hazelnut syrup — pure comfort.
+        </p>
+        <div class="menu-footer">
+          <span class="menu-price">₹180</span>
+          <span class="menu-tag">Fan Favourite</span>
+        </div>
+      </div>
+ 
+      <!-- ── MENU CARD 3 ── -->
+      <div class="menu-card">
+        <div class="menu-icon">🧊</div>
+        <div class="menu-name">Cold Brew Tonic</div>
+        <p class="menu-desc">
+          18-hour cold-steeped coffee over sparkling tonic water and
+          a wedge of orange. Refreshingly unexpected.
+        </p>
+        <div class="menu-footer">
+          <span class="menu-price">₹200</span>
+          <span class="menu-tag">New</span>
+        </div>
+      </div>
+ 
+      <!-- ── MENU CARD 4 ── -->
+      <div class="menu-card">
+        <div class="menu-icon">🍫</div>
+        <div class="menu-name">Mocha Velvet</div>
+        <p class="menu-desc">
+          Dark Belgian chocolate, rich espresso, and steamed whole
+          milk — topped with cocoa dust and a soft foam.
+        </p>
+        <div class="menu-footer">
+          <span class="menu-price">₹195</span>
+          <span class="menu-tag">Indulgent</span>
+        </div>
+      </div>
+ 
+      <!-- ── MENU CARD 5 ── -->
+      <div class="menu-card">
+        <div class="menu-icon">🌿</div>
+        <div class="menu-name">Matcha Cloud</div>
+        <p class="menu-desc">
+          Ceremonial-grade matcha whisked with oat milk and a hint
+          of vanilla — earthy, creamy, and beautifully green.
+        </p>
+        <div class="menu-footer">
+          <span class="menu-price">₹210</span>
+          <span class="menu-tag">Vegan</span>
+        </div>
+      </div>
+ 
+      <!-- ── MENU CARD 6 ── -->
+      <div class="menu-card">
+        <div class="menu-icon">🍯</div>
+        <div class="menu-name">Honey Cardamom Cappuccino</div>
+        <p class="menu-desc">
+          A warm cappuccino kissed with raw honey and a whisper of
+          green cardamom — inspired by Indian chai culture.
+        </p>
+        <div class="menu-footer">
+          <span class="menu-price">₹175</span>
+          <span class="menu-tag">House Special</span>
+        </div>
+      </div>
+ 
+    </div>
+    <!-- END menu-grid -->
+ 
+  </section>
+  <!-- END MENU -->
+ 
+ 
+  <!-- ============================================================
+       SECTION 4: ABOUT
+       - id="about" matches navbar link href="#about"
+       - Two-column layout: image on left, text on right
+       - Circular badge overlaps the image (positioned absolute)
+       - Stats row at the bottom of the text column
+       ============================================================ -->
+  <section id="about">
+ 
+    <!-- Two-column grid wrapper -->
+    <div class="about-inner">
+ 
+      <!-- LEFT COLUMN: Image + floating badge -->
+      <div class="about-img-wrap">
+ 
+        <!-- Café interior photo from Unsplash (free to use) -->
+        <img
+          class="about-img"
+          src="https://images.unsplash.com/photo-1600093463592-8e36ae95ef56?w=800&q=80&fit=crop"
+          alt="Brew Haven interior — warm café with wooden shelves and soft lighting"
+        />
+ 
+        <!-- Circular badge overlapping bottom-right of the image -->
+        <div class="about-badge">
+          <span class="about-badge-num">6+</span>
+          <span class="about-badge-txt">Years of Craft</span>
+        </div>
+ 
+      </div>
+      <!-- END left column -->
+ 
+      <!-- RIGHT COLUMN: Story text + stats -->
+      <div class="about-content">
+ 
+        <p class="section-label">Our Story</p>
+        <h2 class="section-title">A Corner That<br>Feels Like Home</h2>
+        <div class="section-line"></div>  <!-- Decorative underline -->
+ 
+        <p>
+          Roast & Ritual was born in 2019 from a small corner in Chh. Sambhajinagar —
+          a city with a soul as rich as its history. Our founder Soham started
+          with one espresso machine, one grinder, and an obsession with making
+          the perfect cup.
+        </p>
+        <p>
+          We source our beans from Coorg and Chikmagalur, roasted fresh every
+          week by a small family roastery we've worked with since day one.
+          Every drink you order here is made by hand, with time and intention.
+        </p>
+        <p>
+          We believe a café is more than coffee — it's where ideas are born,
+          friendships deepen, and the world slows down just enough.
+        </p>
+ 
+        <!-- Three stat counters (Happy Guests, Origin Beans, Hand-crafted) -->
+        <div class="about-values">
+ 
+          <div class="about-val">
+            <span class="about-val-num">12K+</span>
+            <span class="about-val-lbl">Happy Guests</span>
+          </div>
+ 
+          <div class="about-val">
+            <span class="about-val-num">8</span>
+            <span class="about-val-lbl">Origin Beans</span>
+          </div>
+ 
+          <div class="about-val">
+            <span class="about-val-num">100%</span>
+            <span class="about-val-lbl">Hand-crafted</span>
+          </div>
+ 
+        </div>
+        <!-- END about-values -->
+ 
+      </div>
+      <!-- END right column -->
+ 
+    </div>
+    <!-- END about-inner -->
+ 
+  </section>
+  <!-- END ABOUT -->
+ 
+ 
+  <!-- ============================================================
+       SECTION 5: CONTACT
+       - id="contact" matches navbar link href="#contact"
+       - Two-column layout: info items on left, hours card on right
+       - Each contact item has an icon box + label + value
+       ============================================================ -->
+  <section id="contact">
+ 
+    <!-- Section header (not centered here — left-aligned) -->
+    <p class="section-label">Find Us</p>
+    <h2 class="section-title">Come Say Hello</h2>
+    <div class="section-line"></div>
+ 
+    <!-- Two-column grid wrapper -->
+    <div class="contact-inner">
+ 
+      <!-- LEFT COLUMN: Contact details -->
+      <div class="contact-info-items">
+ 
+        <!-- ── ADDRESS ── -->
+        <div class="contact-item">
+          <div class="contact-icon">📍</div>
+          <div>
+            <p class="contact-item-lbl">Address</p>
+            <p class="contact-item-val">
+              14, Kranti Chowk, Near Paithan Gate,<br>
+              Chh. Sambhajinagar (Aurangabad),<br>
+              Maharashtra — 431 001
+            </p>
+          </div>
+        </div>
+ 
+        <!-- ── PHONE ── -->
+        <div class="contact-item">
+          <div class="contact-icon">📞</div>
+          <div>
+            <p class="contact-item-lbl">Phone</p>
+            <p class="contact-item-val">+91 74989 81630</p>
+          </div>
+        </div>
+ 
+        <!-- ── EMAIL ── -->
+        <div class="contact-item">
+          <div class="contact-icon">✉️</div>
+          <div>
+            <p class="contact-item-lbl">Email</p>
+            <p class="contact-item-val">team@roastandritual.in</p>
+          </div>
+        </div>
+ 
+        <!-- ── SOCIAL MEDIA ── -->
+        <div class="contact-item">
+          <div class="contact-icon">🌐</div>
+          <div>
+            <p class="contact-item-lbl">Follow Us</p>
+            <p class="contact-item-val">@roastandritual.in on Instagram &amp; Facebook</p>
+          </div>
+        </div>
+ 
+      </div>
+      <!-- END left column -->
+ 
+      <!-- RIGHT COLUMN: Opening hours card -->
+      <div class="contact-hours">
+ 
+        <p class="hours-title">Opening Hours</p>
+ 
+        <!-- Each row = day + time, separated by a thin border -->
+        <div class="hours-row">
+          <span class="hours-day">Monday – Friday</span>
+          <span class="hours-time">7:30 AM – 10:00 PM</span>
+        </div>
+        <div class="hours-row">
+          <span class="hours-day">Saturday</span>
+          <span class="hours-time">8:00 AM – 11:00 PM</span>
+        </div>
+        <div class="hours-row">
+          <span class="hours-day">Sunday</span>
+          <span class="hours-time">9:00 AM – 9:00 PM</span>
+        </div>
+        <div class="hours-row">
+          <span class="hours-day">Public Holidays</span>
+          <span class="hours-time">10:00 AM – 8:00 PM</span>
+        </div>
+ 
+      </div>
+      <!-- END hours card -->
+ 
+    </div>
+    <!-- END contact-inner -->
+ 
+  </section>
+  <!-- END CONTACT -->
+ 
+ 
+  <!-- ============================================================
+       SECTION 6: FOOTER
+       - Dark espresso background
+       - Centered: logo, tagline, social pill links, copyright
+       ============================================================ -->
+  <footer>
+ 
+    <div class="footer-inner">
+ 
+      <!-- Footer logo (same as navbar style) -->
+      <div class="footer-logo">Roast&<span>Ritual ☕</span></div>
+ 
+      <!-- One-liner tagline -->
+      <p class="footer-tagline">Crafting moments, one cup at a time.</p>
+ 
+      <!-- Social media links (pill-style buttons) -->
+      <div class="footer-socials">
+        <a href="#" class="social-link">Instagram</a>
+        <a href="#" class="social-link">Facebook</a>
+        <a href="#" class="social-link">Zomato</a>
+        <a href="#" class="social-link">Google</a>
+      </div>
+ 
+      <!-- Thin horizontal divider line -->
+      <div class="footer-divider"></div>
+ 
+      <!-- Copyright line -->
+      <p class="footer-copy">
+        &copy; 2026 Roast&Ritual &nbsp;&middot;&nbsp;
+        Designed by <strong>Soham Patil/@soohaaammmmmm</strong>
+      </p>
+ 
+    </div>
+ 
+  </footer>
+  <!-- END FOOTER -->
+ 
+ 
+</body>
+</html>
+ 
